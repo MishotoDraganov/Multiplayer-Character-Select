@@ -6,7 +6,10 @@ using UnityEngine;
 public class CharacterSpawner : NetworkBehaviour
 {
     [Header("References")]
-    [SerializeField] private CharacterDatabase characterDatabase;
+    [SerializeField] Vector3 spawnPos;
+
+    //  [SerializeField] private CharacterDatabase characterDatabase;
+    [SerializeField] GameObject playerPrefab;
 
     public override void OnNetworkSpawn()
     {
@@ -14,13 +17,8 @@ public class CharacterSpawner : NetworkBehaviour
 
         foreach (var client in MatchplayNetworkServer.Instance.ClientData)
         {
-            var character = characterDatabase.GetCharacterById(client.Value.characterId);
-            if (character != null)
-            {
-                var spawnPos = new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-3f, 3f));
-                var characterInstance = Instantiate(character.GameplayPrefab, spawnPos, Quaternion.identity);
-                characterInstance.SpawnAsPlayerObject(client.Value.clientId);
-            }
+            GameObject spawnedPlayer = Instantiate(playerPrefab, spawnPos, Quaternion.identity);
+            spawnedPlayer.GetComponent<NetworkObject>().SpawnAsPlayerObject(client.Value.clientId);
         }
     }
 }
