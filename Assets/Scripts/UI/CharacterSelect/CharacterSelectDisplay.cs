@@ -7,13 +7,6 @@ using UnityEngine.UI;
 public class CharacterSelectDisplay : NetworkBehaviour
 {
     [Header("References")]
-    [SerializeField] private CharacterDatabase characterDatabase;
-    [SerializeField] private Transform charactersHolder;
-    [SerializeField] private CharacterSelectButton selectButtonPrefab;
-    [SerializeField] private PlayerCard[] playerCards;
-    [SerializeField] private GameObject characterInfoPanel;
-    [SerializeField] private TMP_Text characterNameText;
-    [SerializeField] private Transform introSpawnPoint;
     [SerializeField] private TMP_Text joinCodeText;
     [SerializeField] private Button lockInButton;
 
@@ -30,14 +23,6 @@ public class CharacterSelectDisplay : NetworkBehaviour
     {
         if (IsClient)
         {
-            Character[] allCharacters = characterDatabase.GetAllCharacters();
-
-            foreach (var character in allCharacters)
-            {
-                var selectbuttonInstance = Instantiate(selectButtonPrefab, charactersHolder);
-                selectbuttonInstance.SetCharacter(this, character);
-                characterButtons.Add(selectbuttonInstance);
-            }
 
             players.OnListChanged += HandlePlayersStateChanged;
         }
@@ -102,16 +87,13 @@ public class CharacterSelectDisplay : NetworkBehaviour
             if (IsCharacterTaken(character.Id, false)) { return; }
         }
 
-        characterNameText.text = character.DisplayName;
 
-        characterInfoPanel.SetActive(true);
 
         if (introInstance != null)
         {
             Destroy(introInstance);
         }
 
-        introInstance = Instantiate(character.IntroPrefab, introSpawnPoint);
 
         SelectServerRpc(character.Id);
     }
@@ -123,7 +105,6 @@ public class CharacterSelectDisplay : NetworkBehaviour
         {
             if (players[i].ClientId != serverRpcParams.Receive.SenderClientId) { continue; }
 
-            if (!characterDatabase.IsValidCharacterId(characterId)) { return; }
 
             if (IsCharacterTaken(characterId, true)) { return; }
 
@@ -147,7 +128,6 @@ public class CharacterSelectDisplay : NetworkBehaviour
         {
             if (players[i].ClientId != serverRpcParams.Receive.SenderClientId) { continue; }
 
-            if (!characterDatabase.IsValidCharacterId(players[i].CharacterId)) { return; }
 
             if (IsCharacterTaken(players[i].CharacterId, true)) { return; }
 
@@ -173,17 +153,7 @@ public class CharacterSelectDisplay : NetworkBehaviour
 
     private void HandlePlayersStateChanged(NetworkListEvent<CharacterSelectState> changeEvent)
     {
-        for (int i = 0; i < playerCards.Length; i++)
-        {
-            if (players.Count > i)
-            {
-                playerCards[i].UpdateDisplay(players[i]);
-            }
-            else
-            {
-                playerCards[i].DisableDisplay();
-            }
-        }
+
 
         foreach (var button in characterButtons)
         {
