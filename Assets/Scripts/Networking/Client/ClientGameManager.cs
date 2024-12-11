@@ -92,10 +92,6 @@ public class ClientGameManager : IDisposable
         await Matchmaker.CancelMatchmaking();
     }
 
-    public void ToMainMenu()
-    {
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
-    }
 
     public void AddMatchPlayer(Matchplayer player)
     {

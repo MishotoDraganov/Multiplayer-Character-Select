@@ -44,8 +44,6 @@ public class ApplicationController : MonoBehaviour
             Instantiate(hostSingleton);
 
             await clientSingleton.CreateClient();
-
-            clientSingleton.Manager.ToMainMenu();
         }
     }
 }
