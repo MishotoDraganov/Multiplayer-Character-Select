@@ -3,6 +3,7 @@ using Unity.Netcode;
 
 public struct CharacterSelectState : INetworkSerializable, IEquatable<CharacterSelectState>
 {
+    
     public ulong ClientId;
     public int CharacterId;
     public bool IsLockedIn;
@@ -27,4 +28,5 @@ public struct CharacterSelectState : INetworkSerializable, IEquatable<CharacterS
             CharacterId == other.CharacterId &&
             IsLockedIn == other.IsLockedIn;
     }
+    
 }

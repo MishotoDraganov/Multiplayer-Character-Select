@@ -11,7 +11,6 @@ public class CharacterSelectDisplay : NetworkBehaviour
     [SerializeField] private Button lockInButton;
 
     private GameObject introInstance;
-    private List<CharacterSelectButton> characterButtons = new List<CharacterSelectButton>();
     private NetworkList<CharacterSelectState> players;
 
     private void Awake()
@@ -82,9 +81,9 @@ public class CharacterSelectDisplay : NetworkBehaviour
 
             if (players[i].IsLockedIn) { return; }
 
-            if (players[i].CharacterId == character.Id) { return; }
+           // if (players[i].CharacterId == character.Id) { return; }
 
-            if (IsCharacterTaken(character.Id, false)) { return; }
+           // if (IsCharacterTaken(character.Id, false)) { return; }
         }
 
 
@@ -95,7 +94,7 @@ public class CharacterSelectDisplay : NetworkBehaviour
         }
 
 
-        SelectServerRpc(character.Id);
+    //    SelectServerRpc(character.Id);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -155,15 +154,15 @@ public class CharacterSelectDisplay : NetworkBehaviour
     {
 
 
-        foreach (var button in characterButtons)
-        {
-            if (button.IsDisabled) { continue; }
+       // foreach (var button in characterButtons)
+       // {
+        //   if (button.IsDisabled) { continue; }
 
-            if (IsCharacterTaken(button.Character.Id, false))
-            {
-                button.SetDisabled();
-            }
-        }
+          //  if (IsCharacterTaken(button.Character.Id, false))
+          //  {
+            //    button.SetDisabled();
+           // }
+      //  }
 
         foreach (var player in players)
         {
