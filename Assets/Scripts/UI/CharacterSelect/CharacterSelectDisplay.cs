@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class CharacterSelectDisplay : NetworkBehaviour
 {
     [Header("References")]
-//    [SerializeField] private TMP_Text joinCodeText;
+    [SerializeField] private TMP_Text joinCodeText;
     [SerializeField] private Button lockInButton;
 
     private GameObject introInstance;
@@ -39,7 +39,7 @@ public class CharacterSelectDisplay : NetworkBehaviour
 
         if (IsHost)
         {
-         //   joinCodeText.text = HostSingleton.Instance.RelayHostData.JoinCode;
+            joinCodeText.text = HostSingleton.Instance.RelayHostData.JoinCode;
         }
     }
 

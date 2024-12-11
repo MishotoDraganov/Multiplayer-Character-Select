@@ -9,13 +9,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Bootstrap.unity
     guid: c3104e4de2136cf4fb908e1e6177baa0
   - enabled: 0
-    path: Assets/Scenes/MainMenu.unity
+    path: Assets/Scenes/UIMainMenu.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/Scenes/RandomScene.unity
     guid: 03b6340404cba7e47b908745c064f6d0
   - enabled: 1
-    path: Assets/Scenes/CharacterSelect/CharacterSelect.unity
+    path: Assets/Scenes/UIStartGame.unity
     guid: b7544d5a30d9eed449267cef7699537b
   - enabled: 1
     path: Assets/Scenes/Gameplay.unity
